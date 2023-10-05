@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Hava Durumu</title>
+</head>
+
+<body>
+    <div class="header">
+        <h1>Hava Durumu</h1>
+        <p>Şehir: <span id="city"></span></p>
+    </div>
+
+    <!-- search -->
+    <div class="search-box">
+        <input type="text" id="search-input" placeholder="Şehir Ara...">
+        <button id="search-button">Ara</button>
+    </div>
+    <!-- search -->
+    
+
+    <div class="current-weather">
+        <h2>Şu Anki Hava Durumu</h2>
+        <p>Hava Durumu: <span id="current-condition"></span></p>
+        <p>Sıcaklık: <span id="current-temperature"></span></p>
+        <p>Rüzgar: <span id="current-wind"></span></p>
+        <p>Nem: <span id="current-humidity"></span></p>
+    </div>
+
+    <div class="hourly-forecast">
+        <h2>Saatlik Hava Tahmini</h2>
+        <ul>
+            <li><span class="hour">Şimdi</span> - <span id="tempsHow0" class="temperature"></span></li>
+            <li><span class="hour">1 Saat Sonra</span> - <span id="tempsHow1" class="temperature"></span></li>
+            <li><span class="hour">2 Saat Sonra</span> - <span id="tempsHow2" class="temperature"></span></li>
+            <li><span class="hour">3 Saat Sonra</span> - <span id="tempsHow3" class="temperature"></span></li>
+            <li><span class="hour">4 Saat Sonra</span> - <span id="tempsHow4" class="temperature"></span></li>
+            <li><span id="hourShow" class="hour">5 Saat Sonra</span> - <span id="tempsHow5" class="temperature"> </span>
+            </li>
+        </ul>
+    </div>
+
+    <div class="daily-forecast">
+        <h2>Günlük Hava Durumu</h2>
+        <div class="day">
+            <h3>Bugün</h3>
+            <p>Hava Durumu: <span class="condition" id="today-text"></span></p>
+            <p>En Yüksek Sıcaklık: <span class="high-temperature" id="today-min-temp"></span></p>
+            <p>En Düşük Sıcaklık: <span class="low-temperature" id="today-max-temp"></span></p>
+        </div>
+        <div class="day">
+            <h3>Yarın</h3>
+            <p>Hava Durumu: <span class="condition" id="tomorrow-text"></span></p>
+            <p>En Yüksek Sıcaklık: <span class="high-temperature" id="tomorrow-min-temp"></span></p>
+            <p>En Düşük Sıcaklık: <span class="low-temperature" id="tomorrow-max-temp"></span></p>
+        </div>
+        <div class="day">
+            <h3>Ertesi Gün</h3>
+            <p>Hava Durumu: <span class="condition" id="dayAfter-text"></span></p>
+            <p>En Yüksek Sıcaklık: <span class="high-temperature" id="dayAfter-min-temp"></span></p>
+            <p>En Düşük Sıcaklık: <span class="low-temperature" id="dayAfter-max-temp"></span></p>
+        </div>
+    </div>
+    <script src="backend.js"> </script>
+</body>
+
+</html>

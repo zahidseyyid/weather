@@ -1,0 +1,122 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f0f0;
+}
+
+.header {
+    background-color: #3498db;
+    color: #fff;
+    text-align: center;
+    padding: 20px;
+}
+
+.current-weather, .hourly-forecast, .daily-forecast {
+    background-color: #fff;
+    margin: 10px;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.daily-forecast .day {
+    margin-bottom: 20px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+/* Başlık stilleri */
+.header h1 {
+    font-size: 36px;
+    margin: 0;
+}
+
+/* Şehir bilgisi */
+#city {
+    font-weight: bold;
+    color: #333;
+}
+
+/* Şu anki hava durumu stilleri */
+.current-weather h2 {
+    font-size: 24px;
+}
+
+#current-condition {
+    font-weight: bold;
+    color: #007BFF;
+}
+
+#current-temperature {
+    font-weight: bold;
+    color: #FF5733;
+}
+
+/* Saatlik hava tahmini stilleri */
+.hourly-forecast h2 {
+    font-size: 24px;
+}
+
+.hour {
+    font-weight: bold;
+}
+
+.temperature {
+    color: #007BFF;
+}
+
+/* Günlük hava durumu stilleri */
+.daily-forecast h2 {
+    font-size: 24px;
+}
+
+.daily-forecast .day {
+    background-color: #f9f9f9;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.day h3 {
+    font-size: 20px;
+    margin: 0;
+}
+
+.condition {
+    font-weight: bold;
+    color: #007BFF;
+}
+
+.high-temperature, .low-temperature {
+    font-weight: bold;
+    color: #FF5733;
+}
+
+/* Search */
+
+.search-box {
+    text-align: center;
+    margin: 20px 0;
+}
+
+#search-input {
+    padding: 10px;
+    width: 200px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+#search-button {
+    padding: 10px 20px;
+    background-color: #007BFF;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#search-button:hover {
+    background-color: #0056b3;
+}
