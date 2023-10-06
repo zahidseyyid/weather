@@ -16,7 +16,6 @@ window.addEventListener("load", onPageLoad);
 async function getWeatherInfo(city) {
     let apiKey = "e8de21c1f5fd4650b27133150230110";
     let queryUrl = "https://api.weatherapi.com/v1/forecast.json?key=" + apiKey + "&q=" + city + "&days=5&aqi=no&alerts=no";
-    console.log(queryUrl);
 
     try {
         const responseWeather = await fetch(queryUrl);
@@ -40,21 +39,30 @@ async function getWeatherInfo(city) {
 
         // Saatlik tahminleri diziye ekleme
         var hourlyForecasts = [];
+        var dayIndex = 0;
+        var hourIndex = 0;
 
-        for (var i = 0; i <= 23; i++) {
-            var hourFull = weatherData.forecast.forecastday[0].hour[i].time;
-            var tempCHour = weatherData.forecast.forecastday[0].hour[i].temp_c;
+        for (var i = 0; i <= 30; i++) {
+            var hourFull = weatherData.forecast.forecastday[dayIndex].hour[hourIndex].time;
+            var tempCHour = weatherData.forecast.forecastday[dayIndex].hour[hourIndex].temp_c;
 
             var forecastHour = parseInt(hourFull.split(' ')[1].split(':')[0]);
-            hour = hourFull.split(" ")[1];
 
             if (hourlyForecasts.length <= 5) {
                 if (forecastHour >= currentHour) {
                     hourlyForecasts.push(tempCHour);
                 }
             }
+            hourIndex++;
+                // Saat 23:00'e geldiğinde, bir sonraki güne geç
+                if (forecastHour === 23) {
+                    dayIndex++;
+                    hourIndex = 0;
+                    currentHour = 0; // Saati sıfırla
+                }
         }
 
+        console.log(hourlyForecasts);
 
         //Günün detayları bilgileri
         document.getElementById("city").innerHTML = weatherCity;
