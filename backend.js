@@ -23,19 +23,76 @@ async function getWeatherInfo(city) {
 
         var weatherCity = weatherData.location.name;
         var weatherTemp = Math.round(weatherData.current.temp_c);
-        var weatherText = weatherData.current.condition.text;
+        var weatherTextEng = weatherData.current.condition.text;
         var weatherWind = weatherData.current.wind_kph;
         var weatherHumidity = weatherData.current.humidity;
         var currentHour = weatherData.location.localtime.split(" ")[1].split(":")[0];
         var todayMinTempc = weatherData.forecast.forecastday[0].day.mintemp_c;
         var todayMaxTempc = weatherData.forecast.forecastday[0].day.maxtemp_c;
-        var todayText = weatherData.forecast.forecastday[0].day.condition.text;
+        var todayTextEng = weatherData.forecast.forecastday[0].day.condition.text;
         var tomorrowMinTempc = weatherData.forecast.forecastday[1].day.mintemp_c;
         var tomorrowMaxTempc = weatherData.forecast.forecastday[1].day.maxtemp_c;
-        var tomorrowText = weatherData.forecast.forecastday[1].day.condition.text;
+        var tomorrowTextEng = weatherData.forecast.forecastday[1].day.condition.text;
         var dayAfterMinTempc = weatherData.forecast.forecastday[2].day.mintemp_c;
         var dayAfterMaxTempc = weatherData.forecast.forecastday[2].day.maxtemp_c;
-        var dayAfterText = weatherData.forecast.forecastday[2].day.condition.text;
+        var dayAfterTextEng = weatherData.forecast.forecastday[2].day.condition.text;
+
+        // Textleri türkçe çevirme
+        const havaDurumuCevir = {
+            "Sunny":"Güneşli",
+            "Partly cloudy":"Parçalı Bulutlu",
+            "Cloudy":"Bulutlu",
+            "Overcast":"Çok Bulutlu",
+            "Mist":"Sisli",
+            "Patchy rain nearby":"Bölgesel düzensiz yağmur yağışlı",
+            "Patchy snow nearby":"Bölgesel düzensiz kar yağışlı",
+            "Patchy sleet nearby":"Bölgesel düzensiz karla karışık yağmurlu",
+            "Patchy freezing drizzle nearby":"Bölgesel düzensiz donmuş çisenti",
+            "Thundery outbreaks in nearby":"Bölgesel düzensiz gök gürültülü yağmurlu",
+            "Blowing snow":"Tipi",
+            "Blizzard":"Kar fırtınası",
+            "Fog":"Puslu",
+            "Freezing fog":"Dondurucu sis",
+            "Patchy light drizzle":"Bölgesel düzensiz hafif çisenti",
+            "Light drizzle":"Hafif çisenti",
+            "Freezing drizzle":"Dondurucu çisenti",
+            "Heavy freezing drizzle":"Yoğun dondurucu çisenti",
+            "Patchy light rain":"Düzensiz hafif yağmurlu",
+            "Light rain":"Hafif yağmurlu",
+            "Moderate rain at times":"Ara ara orta kuvvetli yağmurlu",
+            "Moderate rain":"Orta kuvvetli yağmurlu",
+            "Heavy rain at times":"Ara ara şiddetli yağmurlu",
+            "Heavy rain":"Şiddetli yağmurlu",
+            "Light freezing rain":"Hafif dondurucu yağmurlu",
+            "Moderate or heavy freezing rain":"Orta kuvvetli veya Şiddetli dondurucu yağmurlu",
+            "Light sleet":"Hafif karla karışık yağmur",
+            "Moderate or heavy sleet":"Orta kuvvetli veya şiddetli karla karışık yağmur",
+            "Patchy light snow":"Düzensiz hafif karlı",
+            "Light snow":"Hafif karlı",
+            "Patchy moderate snow":"Düzensiz orta kuvvetli karlı",
+            "Moderate snow":"Orta kuvvetli karlı",
+            "Patchy heavy snow":"Düzensiz yoğun kar yağışlı",
+            "Heavy snow":"Yoğun kar yağışlı",
+            "Ice pellets":"Buz taneleri",
+            "Light rain shower":"Hafif sağnak yağışlı",
+            "Moderate or heavy rain shower":"Orta kuvvetli veya yoğun sağnak yağışlı",
+            "Torrential rain shower":"Şiddetli sağnak yağmur",
+            "Light sleet showers":"Hafif karla karışık sağnak yağış",
+            "Moderate or heavy sleet showers":"Orta kuvvetli veya yoğun karla karışık sağnak yağış",
+            "Light snow showers":"Hafif sağnak şeklinde kar",
+            "Moderate or heavy snow showers":"Orta kuvvetli veya yoğun ve sağnak şeklinde kar",
+            "Light showers of ice pellets":"Hafif buz taneleri şeklinde sağnak yağış",
+            "Moderate or heavy showers of ice pellets":"Orta kuvvetli veya yoğun buz taneleri sağnak yağışlı",
+            "Patchy light rain in area with thunder":"Bölgesel gök gürültülü düzensiz hafif yağmur",
+            "Moderate or heavy rain in area with thunder":"Bölgesel gök gürültülü orta kuvvetli veya şiddetli yağış",
+            "Patchy light snow in area with thunder":"Bölgesel gök gürültülü düzensiz hafif kar yağışlı",
+            "Moderate or heavy snow in area with thunder":"Bölgesel gök gürültülü orta kuvvetli veya yoğun kar yağışlı",
+         };
+        
+         const weatherText = havaDurumuCevir[weatherTextEng];
+         const todayText = havaDurumuCevir[todayTextEng];
+         const tomorrowText = havaDurumuCevir[tomorrowTextEng];
+         const dayAfterText = havaDurumuCevir[dayAfterTextEng];
 
         // Saatlik tahminleri diziye ekleme
         var hourlyForecasts = [];
