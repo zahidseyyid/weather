@@ -21,9 +21,10 @@ async function getWeatherInfo(city) {
         const responseWeather = await fetch(queryUrl);
         const weatherData = await responseWeather.json();
 
-
         // Textleri türkçe çevirme
         const havaDurumuCevir = {
+            "Patchy rain possible": "Bölgesel düzensiz yağmur olasılığı",
+            "Clear": "Açık",
             "Sunny": "Güneşli",
             "Partly cloudy": "Parçalı Bulutlu",
             "Cloudy": "Bulutlu",
@@ -74,22 +75,28 @@ async function getWeatherInfo(city) {
             "Moderate or heavy snow in area with thunder": "Bölgesel gök gürültülü orta kuvvetli veya yoğun kar yağışlı",
         };
 
+        // Sadeleştirme
+        var forecastdaySimp = weatherData.forecast.forecastday;
+        var currentSimp = weatherData.current;
+        var locationSimp = weatherData.location;
 
-        var weatherCity = weatherData.location.name;
-        var weatherTemp = Math.round(weatherData.current.temp_c);
-        var weatherText = havaDurumuCevir[weatherData.current.condition.text];
-        var weatherWind = weatherData.current.wind_kph;
-        var weatherHumidity = weatherData.current.humidity;
-        var currentHour = weatherData.location.localtime.split(" ")[1].split(":")[0];
+
+        var weatherCity = locationSimp.name;
+        var weatherTemp = Math.round(currentSimp.temp_c);
+        var weatherText = havaDurumuCevir[currentSimp.condition.text];
+        var weatherWind = currentSimp.wind_kph;
+        var weatherHumidity = currentSimp.humidity;
+        var currentHour = locationSimp.localtime.split(" ")[1].split(":")[0];
+
 
         // Saatlik tahminleri diziye ekleme
         var hourlyForecasts = [];
         var dayIndex = 0;
-        var hourIndex = 0;
+        var hourList = forecastdaySimp[dayIndex].hour;
 
-        for (var i = 0; i <= 30; i++) {
-            var hourFull = weatherData.forecast.forecastday[dayIndex].hour[hourIndex].time;
-            var tempCHour = weatherData.forecast.forecastday[dayIndex].hour[hourIndex].temp_c;
+        for (var i = 0; i < hourList.length; i++) {
+            var hourFull = forecastdaySimp[dayIndex].hour[i].time;
+            var tempCHour = forecastdaySimp[dayIndex].hour[i].temp_c;
 
             var forecastHour = parseInt(hourFull.split(' ')[1].split(':')[0]);
 
@@ -98,12 +105,15 @@ async function getWeatherInfo(city) {
                     hourlyForecasts.push(tempCHour);
                 }
             }
-            hourIndex++;
             // Saat 23:00'e geldiğinde, bir sonraki güne geç
             if (forecastHour === 23) {
                 dayIndex++;
-                hourIndex = 0;
+                i = 0;
                 currentHour = 0; // Saati sıfırla
+            }
+
+            if (hourlyForecasts.length == 6) {
+                break;
             }
         }
 
@@ -112,10 +122,11 @@ async function getWeatherInfo(city) {
         dailyForecasts = [];
 
         for (var i = 0; i < 3; i++) {
-            var forecast = weatherData.forecast.forecastday[i].day;
+            var forecast = forecastdaySimp[i].day;
             var forecastMinTempc = forecast.mintemp_c;
             var forecastMaxTempc = forecast.maxtemp_c;
             var forecastText = havaDurumuCevir[forecast.condition.text];
+            console.log(forecast.condition.text);
 
             dailyForecasts.push({
                 minTempc: forecastMinTempc,
